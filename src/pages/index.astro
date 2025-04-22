@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section class="hero">
+    <h1>Welcome to Astro Store</h1>
+    <p>Explore our latest collection of T-shirts, Hoodies, and Caps!</p>
+  </section>
+
+  <section class="product-grid">
+    <a href="/products/tshirts" class="product-card-link">
+      <div class="product-card">
+        <img src="/images/tshirts/tshirts1.jpg" alt="T-shirt" />
+        <h3>T-Shirts</h3>
+      </div>
+    </a>
+
+    <a href="/products/hoodies" class="product-card-link">
+      <div class="product-card">
+        <img src="/images/hoodies/hoodies1.jpg" alt="Hoodie" />
+        <h3>Hoodies</h3>
+      </div>
+    </a>
+
+    <a href="/products/caps" class="product-card-link">
+      <div class="product-card">
+        <img src="/images/caps/caps2.jpg" alt="Cap" />
+        <h3>Caps</h3>
+      </div>
+    </a>
+  </section>
+</BaseLayout>

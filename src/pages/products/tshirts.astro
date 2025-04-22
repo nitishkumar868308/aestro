@@ -1,0 +1,25 @@
+---
+import { tshirts } from "../../data/products.js"; // Import T-shirts data
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section class="product-grid">
+    <h2>T-shirts</h2>
+    {
+      tshirts.map((product) => (
+        <Fragment key={product.id}>
+          <div class="product-card">
+            <a href={`/products/tshirts/${product.id}`} class="product-link">
+            <img src={product.image} alt={product.name} />
+            <div class="product-info">
+              <h3>{product.name}</h3>
+              <p>${product.price.toFixed(2)}</p>
+            </div>
+            </a>
+          </div>
+        </Fragment>
+      ))
+    }
+  </section>
+</BaseLayout>

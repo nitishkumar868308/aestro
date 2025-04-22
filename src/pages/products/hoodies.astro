@@ -1,0 +1,26 @@
+---
+import { hoodies } from "../../data/products.js"; // Import Hoodies data
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section class="product-grid">
+    <h2>Hoodies</h2>
+    {
+      hoodies.map((product) => (
+        // Wrap it in a Fragment with the key
+        <Fragment key={product.id}>
+          <div class="product-card">
+            <a href={`/products/hoodies/${product.id}`} class="product-link">
+              <img src={product.image} alt={product.name} />
+              <div class="product-info">
+                <h3>{product.name}</h3>
+                <p>${product.price.toFixed(2)}</p>
+              </div>
+            </a>
+          </div>
+        </Fragment>
+      ))
+    }
+  </section>
+</BaseLayout>

@@ -1,0 +1,15 @@
+---
+const currentPage = Astro.url.pathname;
+---
+
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">Astro Store</a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="/" class={currentPage === "/" ? "active" : ""}>Home</a></li>
+    <li><a href="/products/tshirts" class={currentPage === "/products/tshirts" ? "active" : ""}>T-Shirts</a></li>
+    <li><a href="/products/hoodies" class={currentPage === "/products/hoodies" ? "active" : ""}>Hoodies</a></li>
+    <li><a href="/products/caps" class={currentPage === "/products/caps" ? "active" : ""}>Caps</a></li>
+  </ul>
+</nav>

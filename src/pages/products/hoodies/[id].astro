@@ -1,0 +1,42 @@
+---
+import { hoodies } from "../../../data/products.js";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import AddToCartButton from "../../../components/shared/add-to-cart.astro";
+
+// getStaticPaths to generate all paths for hoodie products
+export async function getStaticPaths() {
+  return hoodies.map((product) => ({
+    params: { id: product.id.toString() },
+  }));
+}
+
+const id = Astro.params.id!;
+const product = hoodies.find((p) => p.id === id);
+---
+
+<BaseLayout>
+  {
+    product ? (
+      <section class="product-details">
+        <div class="product-detail-card">
+          <img src={product.image} alt={product.name} />
+          <div class="info">
+            <h1>{product.name}</h1>
+            <p class="price">${product.price.toFixed(2)}</p>
+            <p class="description">{product.description}</p>
+            <AddToCartButton
+              productId={product.id}
+              productName={product.name}
+              productPrice={product.price}
+              productImage={product.image}
+            />
+          </div>
+        </div>
+      </section>
+    ) : (
+      <section class="product-details">
+        <h2>Product not found</h2>
+      </section>
+    )
+  }
+</BaseLayout>

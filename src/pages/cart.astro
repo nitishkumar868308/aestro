@@ -1,0 +1,118 @@
+---
+// src/pages/cart.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <section class="cart">
+    <h2>Your Cart</h2>
+
+    <ul class="cart-items" id="cart-items-list">
+      <!-- Cart items will be injected here by the script -->
+    </ul>
+
+    <p id="empty-cart-message" style="display: none;">Your cart is empty.</p>
+
+    <div class="total-price">
+      <p>Total: $<span id="total-price">0.00</span></p>
+    </div>
+
+    <button class="checkout">Proceed to Checkout</button>
+  </section>
+</BaseLayout>
+
+<script type="module">
+  document.addEventListener("DOMContentLoaded", () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartItemsList = document.getElementById("cart-items-list");
+    const emptyCartMessage = document.getElementById("empty-cart-message");
+    const totalPriceElem = document.getElementById("total-price");
+
+    let totalPrice = 0;
+
+    if (cart.length === 0) {
+      emptyCartMessage.style.display = "block";
+    } else {
+      cart.forEach((item) => {
+        console.log("Cart items in localStorage:", cart);
+
+        console.log("item" , item)
+        const listItem = document.createElement("li");
+        listItem.classList.add("cart-item");
+        listItem.innerHTML = `
+        <div class="cart-item-details">
+          <div class="item-image">
+            <img src="${item.image}" alt="${item.name}" />
+          </div>
+          <div class="item-info">
+            <h3 class="item-name">${item.name}</h3>
+            <p class="price">$${item.price.toFixed(2)}</p>
+            <p class="item-total-price">Item Total: $${(item.price * item.quantity).toFixed(2)}</p>
+          </div>
+        </div>
+      `;
+        cartItemsList.appendChild(listItem);
+        totalPrice += item.price * item.quantity;
+      });
+      totalPriceElem.textContent = totalPrice.toFixed(2);
+    }
+
+    // Event listeners for updating quantity
+    document.querySelectorAll(".quantity-decrease").forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const itemId = e.target.getAttribute("data-id");
+        updateQuantity(itemId, -1);
+      });
+    });
+
+    document.querySelectorAll(".quantity-increase").forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const itemId = e.target.getAttribute("data-id");
+        updateQuantity(itemId, 1);
+      });
+    });
+
+    function updateQuantity(itemId, change) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const item = cart.find((product) => product.id.toString() === itemId);
+
+      if (!item) return;
+
+      item.quantity = Math.max(1, item.quantity + change);
+
+      // Save back to localStorage
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      // Recalculate total price and update UI
+      updateCartUI(cart);
+    }
+
+    function updateCartUI(cart) {
+      // Clear current list and rebuild
+      cartItemsList.innerHTML = "";
+
+      let newTotalPrice = 0;
+
+      cart.forEach((item) => {
+        const listItem = document.createElement("li");
+        listItem.classList.add("cart-item");
+        listItem.innerHTML = `
+        <div class="cart-item-details">
+          <div class="item-image">
+            <img src="${item.image}" alt="${item.name}" />
+          </div>
+          <div class="item-info">
+            <h3 class="item-name">${item.name}</h3>
+            <p class="price">$${item.price.toFixed(2)}</p>
+            <p class="item-total-price">Item Total: $${(item.price * item.quantity).toFixed(2)}</p>
+          </div>
+        </div>
+      `;
+        cartItemsList.appendChild(listItem);
+        newTotalPrice += item.price * item.quantity;
+      });
+
+      totalPriceElem.textContent = newTotalPrice.toFixed(2);
+    }
+  });
+</script>
