@@ -1,4 +1,3 @@
-// data/products.ts
 
 export const tshirts = [
   {

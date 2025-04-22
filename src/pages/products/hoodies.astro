@@ -8,7 +8,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
     <h2>Hoodies</h2>
     {
       hoodies.map((product) => (
-        // Wrap it in a Fragment with the key
         <Fragment key={product.id}>
           <div class="product-card">
             <a href={`/products/hoodies/${product.id}`} class="product-link">

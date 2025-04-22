@@ -1,5 +1,4 @@
 ---
-// src/pages/cart.astro
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
@@ -8,7 +7,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <h2>Your Cart</h2>
 
     <ul class="cart-items" id="cart-items-list">
-      <!-- Cart items will be injected here by the script -->
     </ul>
 
     <p id="empty-cart-message" style="display: none;">Your cart is empty.</p>
@@ -57,7 +55,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       totalPriceElem.textContent = totalPrice.toFixed(2);
     }
 
-    // Event listeners for updating quantity
     document.querySelectorAll(".quantity-decrease").forEach((button) => {
       button.addEventListener("click", (e) => {
         const itemId = e.target.getAttribute("data-id");
@@ -80,15 +77,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       item.quantity = Math.max(1, item.quantity + change);
 
-      // Save back to localStorage
       localStorage.setItem("cart", JSON.stringify(cart));
-
-      // Recalculate total price and update UI
       updateCartUI(cart);
     }
 
     function updateCartUI(cart) {
-      // Clear current list and rebuild
       cartItemsList.innerHTML = "";
 
       let newTotalPrice = 0;

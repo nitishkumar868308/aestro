@@ -3,7 +3,6 @@ import { caps } from "../../../data/products.js";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import AddToCartButton from "../../../components/shared/add-to-cart.astro";
 
-// getStaticPaths to generate all paths for cap products
 export async function getStaticPaths() {
   return caps.map((product) => ({
     params: { id: product.id.toString() },
