@@ -9,6 +9,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.5.0",
     "astro": "^5.7.4",
     "astro-store": "file:"
   }
